@@ -21,47 +21,55 @@ namespace OdeToFood
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,IGreeter greeter,ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IGreeter greeter, ILogger<Startup> logger)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
 
-            //custom middleware
 
-            app.Use(next =>
+            if (env.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler();
+            }
 
-                return async context =>
-                {
-                    logger.LogInformation("Request incoming");
+            ////custom middleware
 
-                    if (context.Request.Path.StartsWithSegments("/mym"))
-                    {
-                        await context.Response.WriteAsync("Hit!!");
-                        logger.LogInformation("Request handled");
+            //app.Use(next =>
+            //{
 
-                    }else
-                    {
-                        await next(context);
-                        logger.LogInformation("Respone outgoing");
-                    }
-                };
+            //    return async context =>
+            //    {
+            //        logger.LogInformation("Request incoming");
 
-            });
+            //        if (context.Request.Path.StartsWithSegments("/mym"))
+            //        {
+            //            await context.Response.WriteAsync("Hit!!");
+            //            logger.LogInformation("Request handled");
 
-            //middleware
-            app.UseWelcomePage(new WelcomePageOptions {
+            //        }else
+            //        {
+            //            await next(context);
+            //            logger.LogInformation("Respone outgoing");
+            //        }
+            //    };
 
-                Path="/wp"  //route
+            //});
 
-            });
+            ////middleware
+            //app.UseWelcomePage(new WelcomePageOptions {
+
+            //    Path="/wp"  //route
+
+            //});
 
             app.Run(async (context) =>
             {
+                //throw new Exception("error!");
+
                 var greeting = greeter.GetMessageOfTheDay();
-                await context.Response.WriteAsync(greeting);
+                await context.Response.WriteAsync($"{greeting} : {env.EnvironmentName}");
             });
         }
     }
