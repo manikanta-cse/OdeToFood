@@ -59,14 +59,23 @@ namespace OdeToFood.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(RestaurantWriteModel restaurant)
         {
-            var newRestaurant = new Restaurant();
 
-            newRestaurant.Cuisine = restaurant.Cuisine;
-            newRestaurant.Name = restaurant.Name;
+            if(ModelState.IsValid)
+            {
+                var newRestaurant = new Restaurant();
 
-            newRestaurant = _restaurantData.Add(newRestaurant);
+                newRestaurant.Cuisine = restaurant.Cuisine;
+                newRestaurant.Name = restaurant.Name;
 
-            return RedirectToAction(nameof(Details), new { id = newRestaurant.Id });
+                newRestaurant = _restaurantData.Add(newRestaurant);
+
+                return RedirectToAction(nameof(Details), new { id = newRestaurant.Id });
+            }
+            else
+            {
+                return View();
+            }
+            
         }
     }
 }
