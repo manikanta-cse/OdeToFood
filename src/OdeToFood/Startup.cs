@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Routing;
 
 namespace OdeToFood
 {
@@ -44,8 +45,10 @@ namespace OdeToFood
             //static file middleware
             app.UseStaticFiles();
 
-            //mvc middleware
-            app.UseMvcWithDefaultRoute();
+            //mvc middleware with default route
+            // app.UseMvcWithDefaultRoute();
+
+            app.UseMvc(ConfigureRoutes);
 
             ////custom middleware
 
@@ -82,8 +85,17 @@ namespace OdeToFood
                 //throw new Exception("error!");
 
                 var greeting = greeter.GetMessageOfTheDay();
+                context.Response.ContentType = "text/plain"; //header
                 await context.Response.WriteAsync($"{greeting} : {env.EnvironmentName}");
             });
+        }
+
+        private void ConfigureRoutes(IRouteBuilder routeBuilder)
+        {
+            //conventional routing
+            //match Home/Index/4 or Home/Index/
+
+            routeBuilder.MapRoute("Default", "{controller=Home}/{action=Index}/{id?}");
         }
     }
 }
