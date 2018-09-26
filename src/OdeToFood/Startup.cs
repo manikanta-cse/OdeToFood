@@ -23,7 +23,7 @@ namespace OdeToFood
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IGreeter greeter, ILogger<Startup> logger)
         {
-
+            //order of middleware is important
 
             if (env.IsDevelopment())
             {
@@ -33,6 +33,16 @@ namespace OdeToFood
             {
                 app.UseExceptionHandler();
             }
+
+
+            //app.UseFileServer(); // combintation of both UseDefaultFiles and UseStaticFiles
+
+            // to server default content.. will be serving index.html
+            app.UseDefaultFiles();
+
+            //static file middleware
+
+            app.UseStaticFiles();
 
             ////custom middleware
 
