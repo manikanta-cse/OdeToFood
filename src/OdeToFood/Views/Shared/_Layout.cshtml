@@ -11,6 +11,9 @@
     </div>
     <footer>
         @RenderSection("footer",required:false)
+        @await Component.InvokeAsync("Greeter")
+
+        <vc:geeter></vc:geeter> @*//other way to render view components*@
     </footer>
 </body>
 </html>
