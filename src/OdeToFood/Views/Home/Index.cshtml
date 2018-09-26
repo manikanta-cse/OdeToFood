@@ -1,30 +1,25 @@
 ﻿@model HomeIndexViewModel
 
-@{ 
+@{
     ViewBag.Title = "Home Page";
-   
+
 }
 
-    <h1>All Restaurants</h1>
-    <table>
-        @foreach (var restaurant in Model.Restaurants)
-        {
-             <tr>
-                <td>@restaurant.Id</td>
-                <td>@restaurant.Name</td>
-                 <td>
-                     @*@Html.ActionLink("Go","Details", new { id = restaurant.Id })*@
-                     <a asp-action="Details" asp-route-id="@restaurant.Id">Details</a>
-                     <a asp-page="/Restaurants/Edit" asp-route-id="@restaurant.Id">Edit</a>
-                 </td>
-            </tr>
-        }
-    </table>
+<h1>All Restaurants</h1>
 
-    <a asp-action="Create">Add Restaurant</a>
+@foreach (var restaurant in Model.Restaurants)
+{
+    @Html.Partial("_Summary", restaurant)
+}
+
+
+
+
+
+<div><a asp-action="Create">Add Restaurant</a></div>
 
 @section footer{
 
-@Model.CurrentMessage
+    @Model.CurrentMessage
 
 }
