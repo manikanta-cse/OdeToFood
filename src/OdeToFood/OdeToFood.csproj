@@ -12,4 +12,8 @@
     <DotNetCliToolReference Version="2.0.0" Include="Microsoft.EntityFrameworkCore.Tools.Dotnet"></DotNetCliToolReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Restaurants\" />
+  </ItemGroup>
+
 </Project>
