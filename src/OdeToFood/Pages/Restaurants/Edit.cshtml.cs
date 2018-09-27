@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace OdeToFood.Pages.Restaurants
 {
-    [Authorize()]
+    //[Authorize()]
     public class EditModel : PageModel
     {
         private IRestaurantData _restaurantData;

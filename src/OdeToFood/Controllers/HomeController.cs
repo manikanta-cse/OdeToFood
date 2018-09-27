@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OdeToFood.Controllers
 {
-    [Authorize()]
+    //[Authorize()]
     public class HomeController : Controller
     {
         private IRestaurantData _restaurantData;
