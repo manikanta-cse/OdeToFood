@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using OdeToFood.Middleware;
 
 namespace OdeToFood
 {
@@ -75,6 +76,9 @@ namespace OdeToFood
             //static file middleware
             app.UseStaticFiles();
 
+            //static file middleware
+            app.UseNodeModules(env.ContentRootPath);
+
 
 
             app.UseAuthentication(); // asp.net identity middleware
@@ -114,14 +118,14 @@ namespace OdeToFood
 
             //});
 
-            app.Run(async (context) =>
-            {
-                //throw new Exception("error!");
+            //app.Run(async (context) =>
+            //{
+            //    //throw new Exception("error!");
 
-                var greeting = greeter.GetMessageOfTheDay();
-                context.Response.ContentType = "text/plain"; //header
-                await context.Response.WriteAsync($"{greeting} : {env.EnvironmentName}");
-            });
+            //    var greeting = greeter.GetMessageOfTheDay();
+            //    context.Response.ContentType = "text/plain"; //header
+            //    await context.Response.WriteAsync($"{greeting} : {env.EnvironmentName}");
+            //});
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)

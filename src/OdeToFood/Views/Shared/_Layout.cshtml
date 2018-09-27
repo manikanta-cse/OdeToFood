@@ -4,37 +4,55 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
-    <div>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">           
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">OdeToFood</a>
+            </div>
+            <div class="navbar-right">
+
+            </div>
+            </div>
+    </nav>
+    <div class="container">
         @RenderBody()
-    </div>
-    <footer>
-        @RenderSection("footer",required:false)
-        @await Component.InvokeAsync("Greeter")
+        <footer>
+            @RenderSection("footer", required: false)
+            @await Component.InvokeAsync("Greeter")
 
-        <vc:geeter></vc:geeter> @*//other way to render view components*@
+            <vc:geeter></vc:geeter> @*//other way to render view components*@
 
-        @if(User.Identity.IsAuthenticated)
-        {
-
-            foreach (var identity in User.Identities)
+            @if (User.Identity.IsAuthenticated)
             {
-                <h3>@identity.Name</h3>
-                <ul>
-                    @foreach (var claim in identity.Claims)
+
+                foreach (var identity in User.Identities)
+                {
+                    <h3>@identity.Name</h3>
+                    <ul>
+                        @foreach (var claim in identity.Claims)
                     {
-                        <li>@claim.Type - @claim.Value</li>
-                    }
-                </ul>
+                            <li>@claim.Type - @claim.Value</li>
+                        }
+                    </ul>
+                }
             }
-        }
-        else
-        {
-            <div>You are anonymous</div>
+            else
+            {
+                <div>You are anonymous</div>
 
-        }
+            }
 
-    </footer>
+        </footer>
+    </div>
+
+    <environment include="Devlopment">
+        <script src="~/node_modules/jquery/dist/jquery.js"></script>
+        <script src="~/node_modules/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+    </environment>
 </body>
 </html>
